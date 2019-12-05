@@ -12,7 +12,7 @@ type Employee struct {
 }
 
 func main() {
-	csvFile, err := os.Open("./companys-details.csv")
+	csvFile, err := os.Open("./job.csv")
 	if err != nil {
 		fmt.Println(err)
 	}
