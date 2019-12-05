@@ -15,7 +15,7 @@ func main() {
 
 	// Instantiate default collector
 
-	fName := ("companysss.csv")
+	fName := ("job.csv")
 	file, err := os.Create(fName)
 	if err != nil {
 		log.Fatalf("Cannot create file %q: %s\n", fName, err)
@@ -26,7 +26,6 @@ func main() {
 	defer writer.Flush()
 
 	// Write CSV header
-	writer.Write([]string{"company title"})
 	t := &http.Transport{}
 	t.RegisterProtocol("file", http.NewFileTransport(http.Dir("/")))
 	c := colly.NewCollector()
@@ -35,7 +34,7 @@ func main() {
 
 	c.OnHTML("#job_listing_panel", func(e *colly.HTMLElement) {
 		writer.Write([]string{
-			e.ChildText(".company-name"),
+			e.ChildText("a.company-name"),
 		})
 	})
 
@@ -48,5 +47,5 @@ func main() {
 		c.Visit(fmt.Sprintf("file:///Users/a-fis/Projects/js/go-crawler/job-crawler/job/downloads/%s", file.Name()))
 	}
 
-	log.Printf("Scraping finished, check file %q for results\n")
+	log.Printf("Scraping finished, check file  for results")
 }
